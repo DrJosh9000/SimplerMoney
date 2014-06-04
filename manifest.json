@@ -1,0 +1,15 @@
+{
+  "manifest_version": 2,
+
+  "name": "Simpler Money",
+  "description": "This extension automatically rounds-up \"almost\" amounts of money. For example, \"$ 3,999.00\" will appear as \"$ 4000.00\".",
+  "version": "0.1",
+
+  "content_scripts": [
+  	{
+	  "matches": ["*://*/*"],
+	  "js": ["simplnum.js"]
+  	}
+  ]
+
+}
