@@ -4,12 +4,12 @@
 function dohtmlreplace(element) {     
 	var nodes = element.childNodes;
 	for (var n=0; n<nodes.length; n++) {
-		if (nodes[n].nodeType == Node.TEXT_NODE) {
+		if (nodes[n].nodeType == Node.ELEMENT_NODE) {
 			var r = new RegExp('\\$(\\s*)([0-9,]+\\.?(\\d*))', 'gi');
 			l = 0
 			nc = ''
 			do {
-				m = r.exec(nodes[n].textContent);
+				m = r.exec(nodes[n].innerHTML);
 				if (r.lastIndex != 0) {
 					z = parseFloat(m[2].replace(',',''));
 					x = z;
@@ -20,13 +20,13 @@ function dohtmlreplace(element) {
 					}*/
 					x = x * o;
 					//diff = z - x
-					nu = '$' + m[1] + x.toFixed(m[3].length); // + '(' + diff.toFixed(2) + ')';
-					app = nodes[n].textContent.substring(l, r.lastIndex-m[0].length) + nu
+					nu = '<span title="' + m[0] + '">$' + m[1] + x.toFixed(m[3].length) + '</span>'; // + '(' + diff.toFixed(2) + ')';
+					app = nodes[n].innerHTML.substring(l, r.lastIndex-m[0].length) + nu
 					nc = nc + app;
 					l = r.lastIndex
 				}
 			} while (r.lastIndex != 0);
-			nodes[n].textContent = nc + nodes[n].textContent.substr(l)
+			nodes[n].innerHTML = nc + nodes[n].innerHTML.substr(l)
 		} else {
 			dohtmlreplace(nodes[n]);
 		}
